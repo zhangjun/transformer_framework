@@ -18,7 +18,8 @@ from torch.distributed.algorithms._checkpoint.checkpoint_wrapper import (
 from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
 
 from config.simple_config import fsdp_simple_config as cfg_fsdp
-from vit_pytorch.deepvit import DeepViT, Residual
+from vit_pytorch.deepvit import DeepViT
+from config.base_config import Residual
 
 # --- bfloat 16 checker
 from pkg_resources import packaging
@@ -70,7 +71,7 @@ def apply_fsdp_checkpointing(model, blocks):
         checkpoint_impl=CheckpointImpl.NO_REENTRANT,
     )
     check_fn = lambda submodule: isinstance(submodule, blocks)
-    apply_activation_checkpointing_wrapper(
+    apply_activation_checkpointing(
         model, checkpoint_wrapper_fn=non_reentrant_wrapper, check_fn=check_fn
     )
 

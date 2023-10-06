@@ -18,8 +18,9 @@ bf16_mixed_precision_policy = MixedPrecision(
 )
 
 # model specific -- users must supply this atm
-from vit_pytorch.deepvit import DeepViT, Residual
+from vit_pytorch.deepvit import DeepViT
 
+from config.base_config import Residual
 model_layer_class = Residual
 
 
