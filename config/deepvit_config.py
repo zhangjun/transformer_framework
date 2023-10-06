@@ -11,18 +11,18 @@ from torch import distributed as dist
 from torch.distributed.fsdp import StateDictType
 from torch.utils.data import Dataset
 from torch.utils.data.distributed import DistributedSampler
-from vit_pytorch.deepvit import DeepViT, Residual
+from vit_pytorch.deepvit import DeepViT
 import torchvision.models as models
 
-from .base_config import base_config, fsdp_checkpointing_base, get_policy_base
+from .base_config import base_config, fsdp_checkpointing_base, get_policy_base, Residual
 
 NUM_CLASSES = 10000
-
 
 @dataclass
 class train_config(base_config):
     # model
     model_name = "1B"
+    # model_name = "60M"
 
     # available models -name is ~ num params
     # 60M

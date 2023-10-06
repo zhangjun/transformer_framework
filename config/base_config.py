@@ -85,7 +85,7 @@ class base_config:
     log_every: int = 1
 
     # dataloaders
-    num_workers_dataloader: int = 2
+    num_workers_dataloader: int = 0 #2
 
     # training
     batch_size_training: int = 32
@@ -174,3 +174,11 @@ def fsdp_checkpointing_base(model, blocks):
         checkpoint_wrapper_fn=non_reentrant_wrapper,
         check_fn=selective_checkpointing,
     )
+
+# https://github.com/lucidrains/vit-pytorch/commit/8208c859a5474b2d93b429202833fcd9f395ec30
+class Residual(torch.nn.Module):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+    def forward(self, x, **kwargs):
+        return self.fn(x, **kwargs) + x
